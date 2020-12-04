@@ -1,12 +1,13 @@
 import Logic from "es6-fuzz/lib/logic";
 import Triangle from "es6-fuzz/lib/curve/triangle";
 
-class Discount {
-    constructor(name, value) {
-      this.name = name;
-      this.value = value;
-    }
-  }
+
+// class Discount {
+//   constructor(name, value) {
+//     this.name = name;
+//     this.value = value;
+//   }
+// }
   
   const min = new Discount("min", 0.02);
   const medium = new Discount("medium", 0.15);
@@ -14,17 +15,18 @@ class Discount {
   const max = new Discount("max", 0.5);
 
   
-  const discountMoneySpent= money=>{
+  const discountMoneySpent= money =>{
     let logicAmountSpent = new Logic();
     let amountSpent = logicAmountSpent
     .init(min, new Triangle(0, 2000, 5000))
     .or(medium, new Triangle(2000, 5000, 7000))
     .or(high, new Triangle(5000, 7000, 10000))
-    .or(max, new Triangle(7000, 100000, 100000000))
+    .or(max, new Triangle(7000, 100000, 10000000))
     .defuzzify(money);
     return  amountSpent.defuzzified;
   } 
   //3500
+
    
   const discountFrequency = frequency=>{
     let logicFrequencyPerYear = new Logic();
@@ -48,7 +50,8 @@ class Discount {
     return monthsOfCooperation.defuzzified;
   } 
 
-  const weightedAverage = (x, y, z) => (x * 4 + y * 1 + z * 2) / (1 + 2 + 4);
+  // const weightedAverage = (x, y, z) => (x * 4 + y * 1 + z * 2) / (1 + 2 + 4);
+  const weightedAverage = (x, y, z) => 2;
 
 //   let discountValue = weightedAverage(
 //     discountMoneySpent().value,
@@ -58,5 +61,5 @@ class Discount {
 
 
 //   export default discountValue;
- export default discountMonths;
+ export default null;
   
