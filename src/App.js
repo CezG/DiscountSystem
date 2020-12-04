@@ -29,12 +29,17 @@ const App = () => {
       saveFormData(data);
   }
 
+  console.log(formData);
+
+  const parsedFormData = formData ? JSON.parse(formData) : {};
+
+
   return (
       <div className="App">
           {!dataRecived && (<DataForm submitFunction={handleDataSave}/>)}
         <div className="chart">
             {
-                dataRecived && (<Chart sales={0.8} orders={0.3} cooperationMonths={0.2}/>)
+                (dataRecived && parsedFormData?.discMoney) && (<Chart sales={parsedFormData?.discMoney?.value} orders={parsedFormData?.discFrequency?.value} cooperationMonths={parsedFormData?.discMonths?.value} company={parsedFormData?.company} discount={parsedFormData?.discount}/>)
             }
         </div>
       </div>

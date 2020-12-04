@@ -4,6 +4,7 @@
 
 .chart {
   width: 200px;
+  margin: 0 auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {

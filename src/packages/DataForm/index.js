@@ -1,12 +1,35 @@
 import React from 'react';
 
 import {useFormik} from 'formik';
-
+import DiscountMoneySpent from "../../helpers/discount/AmountSpent";
+import DiscountFrequency from "../../helpers/discount/Frequency";
+import DiscountMonths from "../../helpers/discount/MonthsOfCooperation";
+import weightedAverage from "../../helpers/discount/DiscountsAverage";
 
 const DataForm = ({submitFunction}) => {
 
     const handleDataSubmit = inputValues => {
-        submitFunction(JSON.stringify(inputValues));
+
+        let discMoney = DiscountMoneySpent(inputValues.sales);
+        let discFrequency = DiscountFrequency(inputValues.frequency);
+        let discMonths = DiscountMonths(inputValues.cooperation);
+
+
+        let discountValue = weightedAverage(
+            discMoney.value,
+            discFrequency.value,
+            discMonths.value
+        ).toFixed(2);
+
+        const dataToExport = {
+            company: inputValues.company,
+            discMoney: discMoney,
+            discFrequency: discFrequency,
+            discMonths: discMonths,
+            discount: discountValue
+        }
+
+       submitFunction(JSON.stringify(dataToExport));
     }
 
     const formik = useFormik({
@@ -18,6 +41,8 @@ const DataForm = ({submitFunction}) => {
             sales: '',
 
             cooperation: '',
+
+            frequency: ''
 
         },
 
@@ -58,7 +83,7 @@ const DataForm = ({submitFunction}) => {
 
                 name="sales"
 
-                type="text"
+                type="number"
 
                 onChange={formik.handleChange}
 
@@ -82,6 +107,23 @@ const DataForm = ({submitFunction}) => {
                 value={formik.values.cooperation}
 
             />
+        </p>
+        <p>
+           <label htmlFor="frequency">Częstotliwość współpracy</label><br />
+
+            <input
+
+                id="frequency"
+
+                name="frequency"
+
+                type="number"
+
+                onChange={formik.handleChange}
+
+                value={formik.values.frequency}
+
+             />
         </p>
             <button type="submit">Submit</button>
 
