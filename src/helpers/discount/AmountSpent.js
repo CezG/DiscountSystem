@@ -1,8 +1,9 @@
 import Logic from "es6-fuzz/lib/logic";
 import Triangle from "es6-fuzz/lib/curve/triangle";
 import discounts from "./Discount";
+import PropTypes from "prop-types";
 
-  const discountMoneySpent= money =>{
+  const DiscountMoneySpent= money =>{
     let logicAmountSpent = new Logic();
     let amountSpent = logicAmountSpent
       .init(discounts[0], new Triangle(0, 2000, 5000))
@@ -13,4 +14,9 @@ import discounts from "./Discount";
     return  amountSpent.defuzzified;
   } 
 
- export default discountMoneySpent;
+  DiscountMoneySpent.prototype = {
+    name: PropTypes.string,
+    value: PropTypes.number
+  }
+
+ export default DiscountMoneySpent;

@@ -1,9 +1,10 @@
 import Logic from "es6-fuzz/lib/logic";
 import Triangle from "es6-fuzz/lib/curve/triangle";
 import discounts from "./Discount";
+import PropTypes from "prop-types";
   
 
-const discountMonths = month =>{
+const DiscountMonths = month =>{
     let logicMonthsOfCooperation = new Logic();
     let monthsOfCooperation = logicMonthsOfCooperation
       .init(discounts[0], new Triangle(0, 6, 12))
@@ -14,4 +15,9 @@ const discountMonths = month =>{
     return monthsOfCooperation.defuzzified;
   } 
 
-  export default discountMonths;
+  DiscountMonths.prototype = {
+    name: PropTypes.string,
+    value: PropTypes.number
+  }
+
+  export default DiscountMonths;

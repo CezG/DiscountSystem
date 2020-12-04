@@ -1,13 +1,3 @@
-import discountMoneySpent from "./AmountSpent";
-import discountFrequency from "./Frequency";
-import discountMonths from "./MonthsOfCooperation";
+const weightedAverage = (x, y, z) => (x * 6 + y * 2 + z * 3) / (2 + 3 + 6);
 
-const weightedAverage = (x, y, z) => (x * 4 + y * 1 + z * 2) / (1 + 2 + 4);
-
-  let discountValue = weightedAverage(
-    discountMoneySpent().value,
-    discountFrequency().value,
-    discountMonths().value
-  ).toFixed(2);
-
-  export default discountValue;
+  export default weightedAverage;

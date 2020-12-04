@@ -1,9 +1,10 @@
 import Logic from "es6-fuzz/lib/logic";
 import Triangle from "es6-fuzz/lib/curve/triangle";
 import discounts from "./Discount";
+import PropTypes from "prop-types";
 
 
-  const discountFrequency = frequency=>{
+  const DiscountFrequency = frequency=>{
     let logicFrequencyPerYear = new Logic();
     let frequencyPerYear = logicFrequencyPerYear
       .init(discounts[0], new Triangle(0, 3, 6))
@@ -12,6 +13,11 @@ import discounts from "./Discount";
       .or(discounts[3], new Triangle(48, 100, 50000))
       .defuzzify(frequency);
     return frequencyPerYear.defuzzified;    
-} 
+}
 
-export default discountFrequency;
+DiscountFrequency.prototype = {
+  name: PropTypes.string,
+  value: PropTypes.number
+}
+
+export default DiscountFrequency;
